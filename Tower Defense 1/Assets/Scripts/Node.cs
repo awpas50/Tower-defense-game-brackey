@@ -9,6 +9,7 @@ public class Node : MonoBehaviour
     private Renderer rend;
 
     private GameObject turret;
+    private Vector3 positionOffsetY = new Vector3(0f, 0.5f, 0f);
 
     private void Start()
     {
@@ -24,9 +25,9 @@ public class Node : MonoBehaviour
             Debug.Log("Can't build there");
             return;
         }
-
         //Build turret
-
+        GameObject turretToBuild = BuildManager.instance.GetTurretToBuild();
+        turret = Instantiate(turretToBuild, transform.position + positionOffsetY, transform.rotation);
     }
     // will only be called once when clicked by mouse
     void OnMouseEnter()
