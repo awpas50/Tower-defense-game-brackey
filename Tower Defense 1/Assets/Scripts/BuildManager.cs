@@ -9,9 +9,18 @@ public class BuildManager : MonoBehaviour
     // a "BuildManager" inside the BuildManager
     //stores a reference to itself
     public static BuildManager instance;
-    private GameObject turretToBuild;
-    public GameObject standardTurretPrefab;
+    private TurretBluePrint turretToBuild;
 
+    public GameObject standardTurretPrefab;
+    public GameObject missileTurretPrefab;
+    public GameObject LaserTurretPrefab;
+
+    public bool CanBuild { get { return turretToBuild != null; } }
+    public void BuildTurretOn(Node node)
+    {
+        GameObject turret = (GameObject)Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
+        node.turret = turret;
+    }
     void Awake()
     {
         //debug
@@ -22,12 +31,9 @@ public class BuildManager : MonoBehaviour
         }
         instance = this;
     }
-    private void Start()
+
+    public void SelectTurretToBuild(TurretBluePrint turret)
     {
-        turretToBuild = standardTurretPrefab;
-    }
-    public GameObject GetTurretToBuild()
-    {
-        return turretToBuild;
+        turretToBuild = turret;
     }
 }

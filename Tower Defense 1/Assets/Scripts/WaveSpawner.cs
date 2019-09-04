@@ -7,8 +7,8 @@ public class WaveSpawner : MonoBehaviour
     public Transform enemyPrefab;
 
     public Transform spawnPoint;
-    public float timeBetweenWaves = 5f;
-    public float timeBetweenEnemies = 1f;
+    public float timeBetweenWaves = 4f;
+    public float timeBetweenEnemies = 0.6f;
     public int enemyCount;
 
     public int waves = 1;

@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Transform target;
     public float speed = 70f;
+    public float explosionRadius = 0f;
     public GameObject impactEffect;
     public void Seek(Transform _target)
     {
@@ -35,13 +36,45 @@ public class Bullet : MonoBehaviour
         // (dir.normalized: remain a constant speed)
         // Space.World: rotate properly
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        transform.LookAt(target);
     }
 
     void HitTarget()
     {
         GameObject effectInstance = Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(effectInstance, 2f);
-        Debug.Log("Hit");
+        Destroy(effectInstance, 5f);
+        if(explosionRadius > 0f)
+        {
+            //splash damage
+            SplashDamage();
+        }
+        else
+        {
+            // hit one target
+            RegularDamage(target);
+        }
         Destroy(gameObject);
+    }
+    void SplashDamage()
+    {
+        // generate an invisible sphere to detect if any colliders are in the range.
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach(Collider collider in colliders)
+        {
+            if(collider.tag == "Enemy")
+            {
+                RegularDamage(collider.transform);
+            }
+        }
+    }
+    void RegularDamage (Transform enemy)
+    {
+        Destroy(enemy.gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
