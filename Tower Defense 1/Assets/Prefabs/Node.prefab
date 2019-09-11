@@ -105,3 +105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
+  initialColor: {r: 0, g: 0, b: 0, a: 0}
+  notEnoughMoneyColor: {r: 0.7735849, g: 0.11311854, b: 0.11311854, a: 0}
+  positionOffsetY: {x: 0, y: 0.5, z: 0}
+  buildEffect: {fileID: 440578366459009766, guid: 99db5de34c524d2409489c99826af496,
+    type: 3}
+  turret: {fileID: 0}

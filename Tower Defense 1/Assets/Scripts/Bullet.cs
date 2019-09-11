@@ -5,9 +5,17 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Transform target;
+    private Turret turret;
+
     public float speed = 70f;
     public float explosionRadius = 0f;
     public GameObject impactEffect;
+
+    // detect which turret shoot this bullet, in order to access the ATK from the "turret" script.
+    public void RecognizeTurret(Turret _turret)
+    {
+        turret = _turret;
+    }
     public void Seek(Transform _target)
     {
         target = _target;
@@ -67,9 +75,13 @@ public class Bullet : MonoBehaviour
             }
         }
     }
-    void RegularDamage (Transform enemy)
+    void RegularDamage (Transform enemyInstance)
     {
-        Destroy(enemy.gameObject);
+        Enemy enemy = enemyInstance.GetComponent<Enemy>();
+        if(enemy != null)
+        {
+            enemy.TakeDamage(turret.ATK);
+        }
     }
 
     private void OnDrawGizmosSelected()

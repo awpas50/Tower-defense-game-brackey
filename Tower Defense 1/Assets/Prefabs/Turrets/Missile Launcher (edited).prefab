@@ -273,3 +273,4 @@ MonoBehaviour:
   partToRotate: {fileID: 5189299248714688946}
   turnSpeed: 10
   bulletSpeed: 10
+  ATK: 40

@@ -19,12 +19,13 @@ public class Turret : MonoBehaviour
     public Transform partToRotate;
     public float turnSpeed = 10f;
     public float bulletSpeed = 10f;
-
+    public int ATK;
     
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+
     }
 
     void UpdateTarget()
@@ -85,6 +86,8 @@ public class Turret : MonoBehaviour
         if(bullet != null)
         {
             bullet.Seek(target);
+            // as the bullet needs to take the variable in the "Turret" script, the bullet needs to recongize which turret shoots it.
+            bullet.RecognizeTurret(this);
         }
     }
 

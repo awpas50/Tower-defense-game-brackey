@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -12,8 +13,13 @@ public class WaveSpawner : MonoBehaviour
     public int enemyCount;
 
     public int waves = 1;
+
+    public TextMeshProUGUI countDownText;
+    private float countDown;
+
     void Start()
     {
+        countDown = timeBetweenEnemies * (enemyCount - 1) + timeBetweenWaves;
         StartCoroutine(SpawnEnemies());
     }
 
@@ -28,6 +34,16 @@ public class WaveSpawner : MonoBehaviour
             }
             waves += 1;
             yield return new WaitForSeconds(timeBetweenWaves);
+        }
+    }
+
+    void Update()
+    {
+        countDown -= Time.deltaTime;
+        countDownText.text = string.Format("{0:00.00}", countDown);
+        if(countDown <= 0.1f)
+        {
+            countDown = timeBetweenEnemies * (enemyCount - 1) + timeBetweenWaves;
         }
     }
 }

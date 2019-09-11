@@ -9,10 +9,11 @@ public class Shop : MonoBehaviour
     public TurretBluePrint laserTurret;
 
     BuildManager buildManager;
-    private void Start()
+    void Start()
     {
         buildManager = BuildManager.instance;
     }
+    
     public void SelectStandardTurret()
     {
         Debug.Log("Purchased Turret 1");
