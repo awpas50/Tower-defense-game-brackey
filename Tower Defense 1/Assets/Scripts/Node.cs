@@ -11,7 +11,6 @@ public class Node : MonoBehaviour
     public Vector3 positionOffsetY = new Vector3(0f, 0.5f, 0f);
     
     private Renderer rend;
-    public GameObject buildEffect;
 
     [Header("Optional")]
     public GameObject turret;
@@ -51,8 +50,7 @@ public class Node : MonoBehaviour
         }
         //Build turret
         buildManager.BuildTurretOn(this);
-        GameObject effectInstance = Instantiate(buildEffect, transform.position, transform.rotation);
-        Destroy(effectInstance, 5f);
+        
 
     }
     // will only be called once when clicked by mouse

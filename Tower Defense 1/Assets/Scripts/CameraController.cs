@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private bool doMovement = true;
+    public bool doMovement = true;
     // x and z axis movement
     public float panSpeed = 30f;
     public float panBorderThickness = 10f;
@@ -19,6 +19,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.GameEnded)
+            enabled = false;
         if(Input.GetKeyDown(KeyCode.Escape))
             doMovement = !doMovement;
         if(!doMovement)

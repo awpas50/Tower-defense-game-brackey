@@ -12,7 +12,7 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenEnemies = 0.6f;
     public int enemyCount;
 
-    public int waves = 1;
+    
 
     public TextMeshProUGUI countDownText;
     private float countDown;
@@ -25,20 +25,21 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {   
-        while(true)
+        while(!GameManager.GameEnded)
         {
             for (int i = 0; i < enemyCount; i++)
             {
                 Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 yield return new WaitForSeconds(timeBetweenEnemies);
             }
-            waves += 1;
+            PlayerStats.waves += 1;
             yield return new WaitForSeconds(timeBetweenWaves);
         }
     }
 
     void Update()
     {
+
         countDown -= Time.deltaTime;
         countDownText.text = string.Format("{0:00.00}", countDown);
         if(countDown <= 0.1f)

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3999929344310444759}
   - component: {fileID: 3999929344310444758}
   - component: {fileID: 3999929344310444753}
-  - component: {fileID: 3314775616197159811}
   - component: {fileID: 3253015728566290199}
   m_Layer: 0
   m_Name: Enemy
@@ -93,20 +92,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3314775616197159811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3999929344310444752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f80025be1bdd5ce4ea93aac34ef85a9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  target: {fileID: 0}
 --- !u!114 &3253015728566290199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,3 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4958c416552de4a92ee98cda796f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 10
+  HP: 50
+  worth: 25
+  deathEffect: {fileID: 440578366459009766, guid: 0ef68112eac8b2745ba0d4901a2fb75e,
+    type: 3}

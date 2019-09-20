@@ -1,22 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private bool GameEnded = false;
-    // Start is called before the first frame update
-    void Start()
+    public static bool GameEnded = false;
+    public GameObject gameOverUI;
+
+    void Awake()
     {
-        
+        GameEnded = false;
+        gameOverUI.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(GameEnded)
         {
             return;
+        }
+        //DEBUG
+        if(Input.GetKeyDown("p"))
+        {
+            EndGame();
         }
         if(Life.life <= 0)
         {
@@ -27,6 +34,16 @@ public class GameManager : MonoBehaviour
     void EndGame()
     {
         GameEnded = true;
-        Debug.Log("GameOver");
+        gameOverUI.SetActive(true);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Menu()
+    {
+
     }
 }

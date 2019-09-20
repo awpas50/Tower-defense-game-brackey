@@ -165,7 +165,7 @@ MonoBehaviour:
   partToRotate: {fileID: 600737776557945903}
   turnSpeed: 10
   bulletSpeed: 10
-  ATK: 20
+  ATK: 25
 --- !u!114 &3062449468878733634
 MonoBehaviour:
   m_ObjectHideFlags: 0

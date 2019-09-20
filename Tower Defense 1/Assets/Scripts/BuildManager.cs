@@ -15,6 +15,8 @@ public class BuildManager : MonoBehaviour
     public GameObject missileTurretPrefab;
     public GameObject LaserTurretPrefab;
 
+    public GameObject buildEffect;
+
     public bool CanBuild { get { return turretToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.Money >= turretToBuild.cost; } }
 
@@ -23,11 +25,14 @@ public class BuildManager : MonoBehaviour
         if(PlayerStats.Money < turretToBuild.cost)
         {
             Debug.Log("Insufficient funds");
+            return;
         }
         GameObject turret = Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
         node.turret = turret;
         PlayerStats.Money -= turretToBuild.cost;
         Debug.Log("Turret built. Money: " + PlayerStats.Money);
+        GameObject effectInstance = Instantiate(buildEffect, node.transform.position, transform.rotation);
+        Destroy(effectInstance, 5f);
     }
     void Awake()
     {
