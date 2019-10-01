@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 344e70b65e6425d42bbc1b93fffcc701, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,6 +108,10 @@ MonoBehaviour:
   initialColor: {r: 0, g: 0, b: 0, a: 0}
   notEnoughMoneyColor: {r: 0.7735849, g: 0.11311854, b: 0.11311854, a: 0}
   positionOffsetY: {x: 0, y: 0.5, z: 0}
-  buildEffect: {fileID: 440578366459009766, guid: 99db5de34c524d2409489c99826af496,
-    type: 3}
   turret: {fileID: 0}
+  turretProperties: {fileID: 0}
+  turretBluePrint:
+    prefab: {fileID: 0}
+    upgradedPrefab: {fileID: 0}
+    cost: 0
+    upgradeCost: 0

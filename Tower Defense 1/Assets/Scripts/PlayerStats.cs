@@ -5,14 +5,14 @@ using TMPro;
 public class PlayerStats : MonoBehaviour
 {
     public static int Money;
-    public int startMoney = 400;
+    public int startMoney;
 
     public static int waves = 1;
 
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI waveText;
 
-    void Start()
+    void Awake()
     {
         waves = 1;
         Money = startMoney;
@@ -20,11 +20,12 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         moneyText.text = Money.ToString();
-        
+        waveText.text = waves.ToString();
     }
 
     private void OnEnable()
     {
+        Debug.Log(waves);
         waveText.text = waves.ToString();
     }
 }

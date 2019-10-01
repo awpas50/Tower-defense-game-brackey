@@ -16,24 +16,12 @@ public class BuildManager : MonoBehaviour
     public GameObject LaserTurretPrefab;
 
     public GameObject buildEffect;
+    public Node selectedNode;
+    public NodeUI nodeUI;
 
     public bool CanBuild { get { return turretToBuild != null; } }
     public bool HasMoney { get { return PlayerStats.Money >= turretToBuild.cost; } }
 
-    public void BuildTurretOn(Node node)
-    {
-        if(PlayerStats.Money < turretToBuild.cost)
-        {
-            Debug.Log("Insufficient funds");
-            return;
-        }
-        GameObject turret = Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
-        node.turret = turret;
-        PlayerStats.Money -= turretToBuild.cost;
-        Debug.Log("Turret built. Money: " + PlayerStats.Money);
-        GameObject effectInstance = Instantiate(buildEffect, node.transform.position, transform.rotation);
-        Destroy(effectInstance, 5f);
-    }
     void Awake()
     {
         //debug
@@ -45,8 +33,48 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
+    public void SelectNode(Node node)
+    {
+        //if (UI.activeInHierarchy == true)
+        //{
+        //    nodeUI.Hide();
+        //}
+        if (selectedNode == node)
+        {
+            DeselectNode();
+            return;
+        }
+
+        //where one is active, than disable another selection
+        selectedNode = node;
+        turretToBuild = null;
+        nodeUI.SetTarget(node);
+    }
+
     public void SelectTurretToBuild(TurretBluePrint turret)
     {
         turretToBuild = turret;
+        DeselectNode();
+    }
+
+    public void DeselectNode()
+    {
+        selectedNode = null;
+        nodeUI.Hide();
+    }
+
+    public TurretBluePrint GetTurretToBuild()
+    {
+        return turretToBuild;
+    }
+
+    void Update()
+    {
+        //right click
+        if (Input.GetMouseButtonDown(1))
+        {
+            DeselectNode();
+            turretToBuild = null;
+        }
     }
 }

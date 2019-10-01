@@ -11,16 +11,24 @@ public class Node : MonoBehaviour
     public Vector3 positionOffsetY = new Vector3(0f, 0.5f, 0f);
     
     private Renderer rend;
-
-    [Header("Optional")]
-    public GameObject turret;
     
+    public GameObject turret;
+
+    // create a "Turret" class variable to access the ATK, level, DPS, fire rate of a turret.
+    public Turret turretProperties;
+    // create a "TurretBluePrint" class variable to access the cost, upgrade cost and the turret model.
+    public TurretBluePrint turretBluePrint;
+
     BuildManager buildManager;
 
     private void Start()
     {
+        
         //keep track of mesh renderer
         rend = GetComponent<Renderer>();
+        // set the nodes to semi-transparent
+        //rend.material.color.a = 0.5f;
+
         initialColor = rend.material.color;
 
         buildManager = BuildManager.instance;
@@ -38,21 +46,76 @@ public class Node : MonoBehaviour
         {
             return;
         }
+        //Cannot be built
+        if (turret != null)
+        {
+            buildManager.SelectNode(this);
+            rend.material.color = initialColor;
+            return;
+        }
         if (!buildManager.CanBuild)
         {
             return;
         }
-        //Cannot be built
-        if (turret != null)
+        //Build turret
+        BuildTurret(buildManager.GetTurretToBuild());
+    }
+
+    void BuildTurret (TurretBluePrint blueprint)
+    {
+        if (PlayerStats.Money < blueprint.cost)
         {
-            Debug.Log("Can't build there");
+            Debug.Log("Insufficient $$");
             return;
         }
-        //Build turret
-        buildManager.BuildTurretOn(this);
-        
 
+        GameObject _turret = Instantiate(blueprint.prefab, GetBuildPosition(), Quaternion.identity);
+        turret = _turret;
+        
+        turretProperties = turret.GetComponent<Turret>();
+
+        //**IMPORTANT
+        turretBluePrint = blueprint;
+
+        PlayerStats.Money -= blueprint.cost;
+        Debug.Log("Turret built. Money: " + PlayerStats.Money);
+
+        GameObject effectInstance = Instantiate(buildManager.buildEffect, transform.position, transform.rotation);
+        Destroy(effectInstance, 5f);
     }
+
+    public void UpgradeTurret()
+    {
+        if (PlayerStats.Money < turretBluePrint.upgradeCost)
+        {
+            Debug.Log("Insufficient $$");
+            return;
+        }
+
+        // get rid of the old turret.
+        //Destroy(turret);
+
+        //replace the old turret in the same direction.
+        //GameObject _turret = Instantiate(turretBluePrint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+        //turret = _turret;
+
+        turretProperties.level += 1;
+        turretProperties.ATK += turretProperties.initialATK * 0.2f;
+        turretProperties.DPS += turretProperties.initialDPS * 0.2f;
+
+        PlayerStats.Money -= turretBluePrint.upgradeCost;
+        Debug.Log("Turret upgraded. Money: " + PlayerStats.Money);
+
+        GameObject effectInstance = Instantiate(buildManager.buildEffect, transform.position, transform.rotation);
+        Destroy(effectInstance, 5f);
+    }
+
+    public void Sell()
+    {
+        Destroy(turret);
+        PlayerStats.Money += (turretBluePrint.cost + turretProperties.level * turretBluePrint.upgradeCost) / 2;
+    }
+
     // will only be called once when clicked by mouse
     void OnMouseEnter()
     {
@@ -77,5 +140,13 @@ public class Node : MonoBehaviour
     void OnMouseExit()
     {
         rend.material.color = initialColor;
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            rend.material.color = initialColor;
+        }
     }
 }

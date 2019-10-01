@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public bool doMovement = true;
     // x and z axis movement
     public float panSpeed = 30f;
     public float panBorderThickness = 10f;
@@ -19,13 +18,6 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GameEnded)
-            enabled = false;
-        if(Input.GetKeyDown(KeyCode.Escape))
-            doMovement = !doMovement;
-        if(!doMovement)
-            return;
-        
         //GetKey: continously send command
         //GetKeyDown: command will only be called once per hit
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panBorderThickness)

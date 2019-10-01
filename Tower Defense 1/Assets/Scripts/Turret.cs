@@ -9,35 +9,42 @@ public class Turret : MonoBehaviour
 
     [Header("General")]
     public float range = 15f;
+    public int level;
+    public int maxLevel;
 
     [Header("Physical Bullet")]
     public GameObject bulletPrefab;
-    public float fireRate = 1f;
     private float fireCountdown = 0f;
     public float bulletSpeed = 10f;
-    public int ATK;
+
+    public float fireRate;
+    [HideInInspector] public float initialATK;
+    public float ATK;
 
     [Header("Laser Attack")]
     public bool useLaser = false;
+
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light pointLight;
 
-    public int DPS;
+    [HideInInspector] public float initialDPS;
+    public float DPS;
     public float slowPercentage;
 
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";
+    public TurretBluePrint turretBluePrint;
     public Transform firePoint;
     public Transform partToRotate;
     public float turnSpeed = 10f;
-    
     
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.3f);
-
+        ATK = initialATK;
+        DPS = initialDPS;
     }
 
     void UpdateTarget()
@@ -90,8 +97,6 @@ public class Turret : MonoBehaviour
             Shoot();
             fireCountdown = 1f / fireRate;
         }
-
-        
         fireCountdown -= Time.deltaTime;
     }
 

@@ -4778,7 +4778,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169903485600367270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.03, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 6785767123616748797}
@@ -4801,17 +4801,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   range: 15
+  level: 1
+  maxLevel: 5
   bulletPrefab: {fileID: 0}
-  fireRate: 0
   bulletSpeed: 0
+  fireRate: 0
+  initialATK: 0
   ATK: 0
   useLaser: 1
   lineRenderer: {fileID: 8797315703140354973}
   impactEffect: {fileID: 9157505228095321793}
   pointLight: {fileID: 9018328485911477255}
+  initialDPS: 30
   DPS: 30
   slowPercentage: 0.3
   enemyTag: Enemy
+  turretBluePrint:
+    prefab: {fileID: 0}
+    upgradedPrefab: {fileID: 0}
+    cost: 0
+    upgradeCost: 0
   firePoint: {fileID: 5201570977337827371}
   partToRotate: {fileID: 3356058230658602562}
   turnSpeed: 18
@@ -9845,7 +9854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3023401265093907675}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0.99050784, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 63.703358}
   m_Children: []
   m_Father: {fileID: 3747214281311613109}
@@ -9921,7 +9930,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6083339101370877451}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2.68, z: 0}
+  m_LocalPosition: {x: 0, y: 1.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5201570977337827371}

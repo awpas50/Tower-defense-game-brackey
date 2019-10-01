@@ -20,11 +20,6 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        //DEBUG
-        if(Input.GetKeyDown("p"))
-        {
-            EndGame();
-        }
         if(Life.life <= 0)
         {
             EndGame();

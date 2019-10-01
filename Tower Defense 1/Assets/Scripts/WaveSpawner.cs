@@ -32,8 +32,11 @@ public class WaveSpawner : MonoBehaviour
                 Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 yield return new WaitForSeconds(timeBetweenEnemies);
             }
-            PlayerStats.waves += 1;
             yield return new WaitForSeconds(timeBetweenWaves);
+            if(!GameManager.GameEnded)
+            {
+                PlayerStats.waves += 1;
+            }
         }
     }
 

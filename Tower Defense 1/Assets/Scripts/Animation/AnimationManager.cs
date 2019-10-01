@@ -15,7 +15,6 @@ public class AnimationManager : MonoBehaviour
     {
         if(GameManager.GameEnded)
         {
-            Debug.Log("GameOver, play animation");
             shopAnim.enabled = true;
             shopAnim.Play("Shop");
         } else

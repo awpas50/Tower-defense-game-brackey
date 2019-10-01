@@ -15,21 +15,16 @@ public class Life : MonoBehaviour
     void Start()
     {
         life = initialLives;
-        lifeText.text = "Life: " + life.ToString();
+        lifeText.text = life.ToString();
     }
 
     void Update()
     {
         UpdateUI();
-        if (life <= 0)
-        {
-            lifeText.text = "GAME OVER";
-
-        }
     }
 
     private void UpdateUI()
     {
-        lifeText.text = "Life: " + life.ToString();
+        lifeText.text = life.ToString();
     }
 }
