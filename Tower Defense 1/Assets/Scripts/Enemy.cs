@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,18 +9,23 @@ public class Enemy : MonoBehaviour
     private int wayPointIndex = 0;
 
     public float initialSpeed = 10f;
+    public float initialHP = 50;
 
     [HideInInspector] public float speed;
-    public float HP = 50;
+    [HideInInspector] public float HP;
     public int worth;
 
     public GameObject deathEffect;
+
+    [Header("Unity Stuff")]
+    public Image healthBar;
 
     //Movement
     void Start()
     {
         target = WayPoints.points[wayPointIndex];
         speed = initialSpeed;
+        HP = initialHP;
     }
 
     void Update()
@@ -55,6 +61,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float amount)
     {
         HP -= amount;
+        healthBar.fillAmount = HP / initialHP;
         if(HP <= 0)
         {
             Die();

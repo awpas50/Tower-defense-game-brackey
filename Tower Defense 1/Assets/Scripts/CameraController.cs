@@ -35,7 +35,6 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetKey("d") || Input.mousePosition.x >= Screen.width - panBorderThickness)
         {
-            // no need physic and collision check.
             transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
         }
 
