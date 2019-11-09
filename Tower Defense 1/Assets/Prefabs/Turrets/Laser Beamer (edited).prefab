@@ -4800,6 +4800,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  targetSelectionMode: 1
+  targetLock: 1
   range: 15
   level: 1
   maxLevel: 5

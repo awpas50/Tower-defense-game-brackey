@@ -264,6 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  targetSelectionMode: 2
+  targetLock: 1
   range: 20
   level: 1
   maxLevel: 5

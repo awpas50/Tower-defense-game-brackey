@@ -9,7 +9,8 @@ public class Turret : MonoBehaviour
     private GameObject[] enemies;
 
     [Header("Target lock mode")]
-    public int targetLockMode = 1;
+    public int targetSelectionMode = 1;
+    public bool targetLock = true;
 
     [Header("General")]
     public float range = 15f;
@@ -49,43 +50,17 @@ public class Turret : MonoBehaviour
         //InvokeRepeating("UpdateTarget", 0f, 0.3f);
         ATK = initialATK;
         DPS = initialDPS;
-
-        enemies = GameObject.FindGameObjectsWithTag(enemyTag);
     }
 
     void UpdateTarget_Close()
     {
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
-        // find out which enemy is the closet one.
+        enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        // find out which enemy is the nearest.
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
-            {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-            }
-        }
-        if (nearestEnemy != null && shortestDistance <= range)
-        {
-            target = nearestEnemy.transform;
-            targetEnemy = nearestEnemy.GetComponent<Enemy>();
-        } else
-        {
-            target = null;
-        }
-    }
-
-    void UpdateTarget_Close_LockOn()
-    {
-        float shortestDistance = Mathf.Infinity;
-        float distanceToTarget = Mathf.Infinity;
-        GameObject nearestEnemy = null;
-        // find out which enemy is the closet one.
-        if (!isLocked)
-        {
-            foreach (GameObject enemy in enemies)
+            if(Vector3.Distance(transform.position, enemy.transform.position) <= range)
             {
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distanceToEnemy < shortestDistance)
@@ -95,19 +70,18 @@ public class Turret : MonoBehaviour
                 }
             }
         }
-
         if (nearestEnemy != null && shortestDistance <= range)
         {
-            
-            distanceToTarget = Vector3.Distance(transform.position, nearestEnemy.transform.position);
+            //Lock Target
+            if(targetLock)
+            {
+                if (target != null && Vector3.Distance(transform.position, target.position) <= range)
+                {
+                    return;
+                }
+            }
             target = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<Enemy>();
-            
-            if (distanceToTarget > range || target == null) // out of range or enemy destroyed
-            {
-                isLocked = false;
-            }
-            //isLocked = true;
         }
         else
         {
@@ -115,25 +89,88 @@ public class Turret : MonoBehaviour
         }
     }
 
-
     void UpdateTarget_Hard()
     {
-        
+        float enemyHP = 0f;
+        GameObject highestHPenemy = null;
+        enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        // find out which enemy is the nearest.
+        foreach (GameObject enemy in enemies)
+        {
+            if(Vector3.Distance(transform.position, enemy.transform.position) <= range)
+            {
+                float thisEnemyHP = enemy.GetComponent<Enemy>().HP;
+                if (thisEnemyHP > enemyHP)
+                {
+                    enemyHP = thisEnemyHP;
+                    highestHPenemy = enemy;
+                }
+            }
+        }
+        if (highestHPenemy != null)
+        {
+            //Lock Target
+            if (targetLock)
+            {
+                if (target != null && Vector3.Distance(transform.position, target.position) <= range)
+                {
+                    return;
+                }
+            }
+            target = highestHPenemy.transform;
+            targetEnemy = highestHPenemy.GetComponent<Enemy>();
+        }
+        else
+        {
+            target = null;
+        }
     }
 
     void UpdateTarget_Weak()
     {
-
+        float enemyHP = Mathf.Infinity;
+        GameObject lowestHPenemy = null;
+        enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        // find out which enemy is the nearest.
+        foreach (GameObject enemy in enemies)
+        {
+            if (Vector3.Distance(transform.position, enemy.transform.position) <= range)
+            {
+                float thisEnemyHP = enemy.GetComponent<Enemy>().HP;
+                if (thisEnemyHP < enemyHP)
+                {
+                    enemyHP = thisEnemyHP;
+                    lowestHPenemy = enemy;
+                }
+            }
+        }
+        if (lowestHPenemy != null)
+        {
+            //Lock Target
+            if (targetLock)
+            {
+                if (target != null && Vector3.Distance(transform.position, target.position) <= range)
+                {
+                    return;
+                }
+            }
+            target = lowestHPenemy.transform;
+            targetEnemy = lowestHPenemy.GetComponent<Enemy>();
+        }
+        else
+        {
+            target = null;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(targetLockMode == 1)
+        if(targetSelectionMode == 1)
             UpdateTarget_Close();
-        if (targetLockMode == 2)
+        if (targetSelectionMode == 2)
             UpdateTarget_Hard();
-        if (targetLockMode == 3)
+        if (targetSelectionMode == 3)
             UpdateTarget_Weak();
         
         if (target == null)

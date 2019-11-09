@@ -13,11 +13,10 @@ public class Node : MonoBehaviour
     private Renderer rend;
     
     public GameObject turret;
-
-    // create a "Turret" class variable to access the ATK, level, DPS, fire rate of a turret.
-    public Turret turretProperties;
+    
     // create a "TurretBluePrint" class variable to access the cost, upgrade cost and the turret model.
     public TurretBluePrint turretBluePrint;
+    public TurretStat turretStat;
 
     BuildManager buildManager;
 
@@ -71,8 +70,6 @@ public class Node : MonoBehaviour
 
         GameObject _turret = Instantiate(blueprint.prefab, GetBuildPosition(), Quaternion.identity);
         turret = _turret;
-        
-        turretProperties = turret.GetComponent<Turret>();
 
         //**IMPORTANT
         turretBluePrint = blueprint;
@@ -99,9 +96,9 @@ public class Node : MonoBehaviour
         //GameObject _turret = Instantiate(turretBluePrint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
         //turret = _turret;
 
-        turretProperties.level += 1;
-        turretProperties.ATK += turretProperties.initialATK * 0.2f;
-        turretProperties.DPS += turretProperties.initialDPS * 0.2f;
+        turret.GetComponent<Turret>().level += 1;
+        turret.GetComponent<Turret>().ATK += turret.GetComponent<Turret>().initialATK * 0.2f;
+        turret.GetComponent<Turret>().DPS += turret.GetComponent<Turret>().initialDPS * 0.2f;
 
         PlayerStats.Money -= turretBluePrint.upgradeCost;
         Debug.Log("Turret upgraded. Money: " + PlayerStats.Money);
@@ -113,7 +110,7 @@ public class Node : MonoBehaviour
     public void Sell()
     {
         Destroy(turret);
-        PlayerStats.Money += (turretBluePrint.cost + turretProperties.level * turretBluePrint.upgradeCost) / 2;
+        PlayerStats.Money += (turretBluePrint.cost + turret.GetComponent<Turret>().level * turretBluePrint.upgradeCost) / 2;
     }
 
     // will only be called once when clicked by mouse
