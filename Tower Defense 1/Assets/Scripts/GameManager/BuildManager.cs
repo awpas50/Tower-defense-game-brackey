@@ -44,11 +44,19 @@ public class BuildManager : MonoBehaviour
             DeselectNode();
             return;
         }
-
-        //where one is active, than disable another selection
+        //where one is active, disable another selection
         selectedNode = node;
         turretToBuild = null;
-        nodeUI.SetTarget(node);
+        // if the object on node is a turret, than set the selected node
+        if (selectedNode.objectOnNode.GetComponent<Turret>())
+        {
+            nodeUI.SetTarget(node);
+        }
+        else
+        {
+            Debug.Log("Cannot build on " + selectedNode.objectOnNode.name);
+            return;
+        }
     }
 
     public void SelectTurretToBuild(TurretBluePrint turret)

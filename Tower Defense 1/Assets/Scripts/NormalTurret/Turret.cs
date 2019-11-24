@@ -12,19 +12,10 @@ public class Turret : MonoBehaviour
     public int targetSelectionMode = 1;
     public bool targetLock = true;
 
-    [Header("General")]
-    public float range = 15f;
-    public int level;
-    public int maxLevel;
-    bool isLocked = false;
-
     [Header("Physical Bullet")]
     public GameObject bulletPrefab;
     private float fireCountdown = 0f;
-    public float bulletSpeed = 10f;
-    public float fireRate;
-    [HideInInspector] public float initialATK;
-    public float ATK;
+    [HideInInspector] public float ATK;
 
     [Header("Laser Attack")]
     public bool useLaser = false;
@@ -32,56 +23,55 @@ public class Turret : MonoBehaviour
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light pointLight;
-
-    [HideInInspector] public float initialDPS;
-    public float DPS;
-    public float slowPercentage;
+    
+    [HideInInspector] public float DPS;
 
     [Header("Unity Setup Fields")]
+    public TurretStat turretStat;
+    [HideInInspector] public float range;
     public string enemyTag = "Enemy";
-    public TurretBluePrint turretBluePrint;
     public Transform firePoint;
     public Transform partToRotate;
-    public float turnSpeed = 10f;
     
     // Start is called before the first frame update
     void Start()
     {
         //InvokeRepeating("UpdateTarget", 0f, 0.3f);
-        ATK = initialATK;
-        DPS = initialDPS;
+        ATK = turretStat.initialATK;
+        DPS = turretStat.initialDPS;
+        range = turretStat.initialRange;
     }
 
     void UpdateTarget_Close()
     {
         float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
+        GameObject nearestTarget = null;
         enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         // find out which enemy is the nearest.
         foreach (GameObject enemy in enemies)
         {
-            if(Vector3.Distance(transform.position, enemy.transform.position) <= range)
+            if(Vector3.Distance(transform.position, enemy.transform.position) <= turretStat.initialRange)
             {
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distanceToEnemy < shortestDistance)
                 {
                     shortestDistance = distanceToEnemy;
-                    nearestEnemy = enemy;
+                    nearestTarget = enemy;
                 }
             }
         }
-        if (nearestEnemy != null && shortestDistance <= range)
+        if (nearestTarget != null && shortestDistance <= turretStat.initialRange)
         {
             //Lock Target
             if(targetLock)
             {
-                if (target != null && Vector3.Distance(transform.position, target.position) <= range)
+                if (target != null && Vector3.Distance(transform.position, target.position) <= turretStat.initialRange)
                 {
                     return;
                 }
             }
-            target = nearestEnemy.transform;
-            targetEnemy = nearestEnemy.GetComponent<Enemy>();
+            target = nearestTarget.transform;
+            targetEnemy = nearestTarget.GetComponent<Enemy>();
         }
         else
         {
@@ -97,7 +87,7 @@ public class Turret : MonoBehaviour
         // find out which enemy is the nearest.
         foreach (GameObject enemy in enemies)
         {
-            if(Vector3.Distance(transform.position, enemy.transform.position) <= range)
+            if(Vector3.Distance(transform.position, enemy.transform.position) <= turretStat.initialRange)
             {
                 float thisEnemyHP = enemy.GetComponent<Enemy>().HP;
                 if (thisEnemyHP > enemyHP)
@@ -112,7 +102,7 @@ public class Turret : MonoBehaviour
             //Lock Target
             if (targetLock)
             {
-                if (target != null && Vector3.Distance(transform.position, target.position) <= range)
+                if (target != null && Vector3.Distance(transform.position, target.position) <= turretStat.initialRange)
                 {
                     return;
                 }
@@ -134,7 +124,7 @@ public class Turret : MonoBehaviour
         // find out which enemy is the nearest.
         foreach (GameObject enemy in enemies)
         {
-            if (Vector3.Distance(transform.position, enemy.transform.position) <= range)
+            if (Vector3.Distance(transform.position, enemy.transform.position) <= turretStat.initialRange)
             {
                 float thisEnemyHP = enemy.GetComponent<Enemy>().HP;
                 if (thisEnemyHP < enemyHP)
@@ -149,7 +139,7 @@ public class Turret : MonoBehaviour
             //Lock Target
             if (targetLock)
             {
-                if (target != null && Vector3.Distance(transform.position, target.position) <= range)
+                if (target != null && Vector3.Distance(transform.position, target.position) <= turretStat.initialRange)
                 {
                     return;
                 }
@@ -195,7 +185,7 @@ public class Turret : MonoBehaviour
         else if (fireCountdown <= 0f)
         {
             Shoot();
-            fireCountdown = 1f / fireRate;
+            fireCountdown = 1f / turretStat.fireRate;
         }
         fireCountdown -= Time.deltaTime;
     }
@@ -220,7 +210,7 @@ public class Turret : MonoBehaviour
         //Quaternion.LookRoation: instance lock a new target
         //Quaternion.Lerp: lock a target (from A to B) with a speed
         //Therefore we use Quaternion.Lerp here.
-        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turretStat.turnSpeed).eulerAngles;
         //only rotate Y-axis
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
@@ -230,7 +220,7 @@ public class Turret : MonoBehaviour
         // deals damage
         targetEnemy.TakeDamage(DPS * Time.deltaTime);
         // slow enemies
-        targetEnemy.SlowDown(slowPercentage);
+        targetEnemy.SlowDown(turretStat.slowPercentage);
         // visual effects
         if (!lineRenderer.enabled)
         {
@@ -252,6 +242,6 @@ public class Turret : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(transform.position, turretStat.initialRange);
     }
 }

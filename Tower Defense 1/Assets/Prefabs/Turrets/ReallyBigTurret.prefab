@@ -157,31 +157,32 @@ MonoBehaviour:
   target: {fileID: 0}
   targetSelectionMode: 1
   targetLock: 1
-  range: 15
-  level: 1
-  maxLevel: 5
   bulletPrefab: {fileID: 2307279769797830522, guid: 5d32d5c0b71df04489c1ed4ebdcc7d8d,
     type: 3}
-  bulletSpeed: 10
-  fireRate: 1
-  initialATK: 20
   ATK: 20
   useLaser: 0
   lineRenderer: {fileID: 0}
   impactEffect: {fileID: 0}
   pointLight: {fileID: 0}
-  initialDPS: 0
   DPS: 0
-  slowPercentage: 0
-  enemyTag: Enemy
-  turretBluePrint:
-    prefab: {fileID: 0}
-    upgradedPrefab: {fileID: 0}
+  turretStat:
+    turretName: Cannon
+    initialRange: 25
+    level: 1
+    maxLevel: 1
+    turnSpeed: 4
+    initialATK: 50
+    fireRate: 0.5
+    bulletSpeed: 10
+    initialDPS: 0
+    slowPercentage: 0
     cost: 0
     upgradeCost: 0
+    sellCost: 0
+  range: 0
+  enemyTag: Enemy
   firePoint: {fileID: 840151895608005669}
   partToRotate: {fileID: 600737776557945903}
-  turnSpeed: 2
 --- !u!1 &3574799401710632746
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour
     public int startMoney;
 
     public static int waves = 1;
+    public static int TotalWave;
     public int totalWave;
 
     public TextMeshProUGUI moneyText;
@@ -18,17 +19,19 @@ public class PlayerStats : MonoBehaviour
     {
         waves = 1;
         Money = startMoney;
+        TotalWave = totalWave;
     }
+
     void Update()
     {
         moneyText.text = Money.ToString();
         survivedWaveText.text = waves.ToString();
-        waveText.text = "Wave " + waves + " out of " + totalWave;
+        waveText.text = "Wave " + waves + " / " + totalWave;
     }
 
     private void OnEnable()
     {
-        Debug.Log(waves);
+        //Debug.Log(waves);
         survivedWaveText.text = waves.ToString();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BigTurretManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class BigTurretManager : MonoBehaviour
     public GameObject selectedBigNode;
     // memorize 'selectedBigNode'
     private GameObject marker;
+    private GameObject previousPos;
 
     public GameObject bigTurret;
     //stores info about big turret
@@ -31,6 +33,10 @@ public class BigTurretManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
             RaycastHit hitInfo;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo))
             {
@@ -68,10 +74,15 @@ public class BigTurretManager : MonoBehaviour
         bigTurretPrefab = Instantiate(bigTurret, GetBuildPosition(), Quaternion.identity);
         bigTurretPrefab.transform.parent = bigTurretList;
         bigTurretPrefab.transform.position = selectedBigNode.transform.position;
+        // to access NodeUI
+        selectedBigNode.GetComponent<Node>().objectOnNode = bigTurretPrefab;
+        previousPos = selectedBigNode;
     }
     void MoveBigTurret()
     {
+        previousPos.GetComponent<Node>().objectOnNode = null;
         bigTurretPrefab.transform.position = selectedBigNode.transform.position;
+        selectedBigNode.GetComponent<Node>().objectOnNode = bigTurretPrefab;
         marker = selectedBigNode;
     }
 }

@@ -66,7 +66,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e95969f390efaf04aa3bf22fa5f5799c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 3999929344310444758}
   - component: {fileID: 3999929344310444753}
   - component: {fileID: 3253015728566290199}
+  - component: {fileID: -8144044705666548560}
   m_Layer: 0
   m_Name: Enemy 2
   m_TagString: Enemy
@@ -308,7 +309,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b03ac7d30be74c640b7d4a9dafafdec4, type: 2}
+  - {fileID: 2100000, guid: a978fa642e3e047408941d7bcbdaa14b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,11 +354,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4958c416552de4a92ee98cda796f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSpeed: 10
+  enemyID: 2
+  nextWavePoint: {fileID: 0}
+  wayPointIndex: 0
   initialHP: 250
-  speed: 10
   HP: 50
-  worth: 25
-  deathEffect: {fileID: 440578366459009766, guid: 0ef68112eac8b2745ba0d4901a2fb75e,
+  initialSpeed: 6.5
+  speed: 10
+  worth: 40
+  deathEffect: {fileID: 440578366459009766, guid: dc047eca113e52b44883cb3bad9bc213,
     type: 3}
   healthBar: {fileID: 1595901073}
+--- !u!114 &-8144044705666548560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999929344310444752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82adcafb30d582240b7c913981c45a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyID: 0
+  nextWavePoint: {fileID: 0}
+  wayPointIndex: 0
+  initialHP: 50
+  HP: 0
+  initialSpeed: 10
+  speed: 0
+  worth: 0
+  deathEffect: {fileID: 0}
+  healthBar: {fileID: 0}

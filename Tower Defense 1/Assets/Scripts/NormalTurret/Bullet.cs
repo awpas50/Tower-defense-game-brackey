@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
     {
         turret = _turret;
     }
+    // recongize enemy
     public void Seek(Transform _target)
     {
         target = _target;
@@ -71,7 +72,20 @@ public class Bullet : MonoBehaviour
         {
             if(collider.tag == "Enemy")
             {
-                RegularDamage(collider.transform);
+                Enemy enemy = collider.transform.GetComponent<Enemy>();
+                float explosionDistance = Vector3.Distance(enemy.transform.position, transform.position);
+                if (enemy != null)
+                {
+
+                    if(explosionDistance < (explosionRadius * 0.4f)) // 0 ~ 40%
+                    {
+                        enemy.TakeDamage(turret.ATK);
+                    }
+                    if (explosionDistance > (explosionRadius * 0.4f)) // 40% ~ 100%
+                    {
+                        enemy.TakeDamage(turret.ATK * (1 - explosionDistance / explosionRadius));
+                    }
+                }
             }
         }
     }

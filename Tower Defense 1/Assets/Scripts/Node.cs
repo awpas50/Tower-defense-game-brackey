@@ -11,8 +11,8 @@ public class Node : MonoBehaviour
     public Vector3 positionOffsetY = new Vector3(0f, 0.5f, 0f);
     
     private Renderer rend;
-    
-    public GameObject turret;
+    public GameObject objectOnNode;
+    public bool isPossibleMineralPos = false;
     
     // create a "TurretBluePrint" class variable to access the cost, upgrade cost and the turret model.
     public TurretBluePrint turretBluePrint;
@@ -29,7 +29,6 @@ public class Node : MonoBehaviour
         //rend.material.color.a = 0.5f;
 
         initialColor = rend.material.color;
-
         buildManager = BuildManager.instance;
     }
 
@@ -46,7 +45,7 @@ public class Node : MonoBehaviour
             return;
         }
         //Cannot be built
-        if (turret != null)
+        if (objectOnNode != null)
         {
             buildManager.SelectNode(this);
             rend.material.color = initialColor;
@@ -62,6 +61,10 @@ public class Node : MonoBehaviour
 
     void BuildTurret (TurretBluePrint blueprint)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (PlayerStats.Money < blueprint.cost)
         {
             Debug.Log("Insufficient $$");
@@ -69,7 +72,7 @@ public class Node : MonoBehaviour
         }
 
         GameObject _turret = Instantiate(blueprint.prefab, GetBuildPosition(), Quaternion.identity);
-        turret = _turret;
+        objectOnNode = _turret;
 
         //**IMPORTANT
         turretBluePrint = blueprint;
@@ -96,9 +99,10 @@ public class Node : MonoBehaviour
         //GameObject _turret = Instantiate(turretBluePrint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
         //turret = _turret;
 
-        turret.GetComponent<Turret>().level += 1;
-        turret.GetComponent<Turret>().ATK += turret.GetComponent<Turret>().initialATK * 0.2f;
-        turret.GetComponent<Turret>().DPS += turret.GetComponent<Turret>().initialDPS * 0.2f;
+        objectOnNode.GetComponent<Turret>().turretStat.level += 1;
+        objectOnNode.GetComponent<Turret>().ATK += objectOnNode.GetComponent<Turret>().turretStat.initialATK * 0.2f;
+        objectOnNode.GetComponent<Turret>().DPS += objectOnNode.GetComponent<Turret>().turretStat.initialDPS * 0.2f;
+        objectOnNode.GetComponent<Turret>().range += 1f;
 
         PlayerStats.Money -= turretBluePrint.upgradeCost;
         Debug.Log("Turret upgraded. Money: " + PlayerStats.Money);
@@ -109,23 +113,39 @@ public class Node : MonoBehaviour
 
     public void Sell()
     {
-        Destroy(turret);
-        PlayerStats.Money += (turretBluePrint.cost + turret.GetComponent<Turret>().level * turretBluePrint.upgradeCost) / 2;
+        Destroy(objectOnNode);
+        PlayerStats.Money += (int)Mathf.Round((turretBluePrint.cost + (objectOnNode.GetComponent<Turret>().turretStat.level - 1) * turretBluePrint.upgradeCost) / 2);
     }
 
     // will only be called once when clicked by mouse
     void OnMouseEnter()
     {
+        // if no turret in the shop is selected 
         if (!buildManager.CanBuild)
         {
             return;
         }
+        // if enough money
         if (buildManager.HasMoney)
         {
             rend.material.color = hoverColor;
-        } else
+        }
+        // if not enough money
+        else
         {
             rend.material.color = notEnoughMoneyColor;
+        }
+
+        // if the object on node is a mineral 
+        // a statement was used to detect if the object has a script named "Mineral", if so, the object must be mineral.
+        if (objectOnNode.GetComponent<Mineral>())
+        {
+            rend.material.color = initialColor;
+        }
+        // not doing anything if the object is not a mineral
+        else if (objectOnNode == null)
+        {
+            rend.material.color = initialColor;
         }
         //keep track of mesh renderer
         // without this code, when hover over the nodes under the UI (turret icon), the turret still gets set.
