@@ -1953,7 +1953,7 @@ PrefabInstance:
     - target: {fileID: 8377400967659988473, guid: 156341127a727234f8083a358d76de51,
         type: 3}
       propertyPath: m_Text
-      value: $225
+      value: $100
       objectReference: {fileID: 0}
     - target: {fileID: 8377400967659988473, guid: 156341127a727234f8083a358d76de51,
         type: 3}
@@ -7381,6 +7381,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 283387418}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &285918977 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8377400967659988473, guid: 156341127a727234f8083a358d76de51,
+    type: 3}
+  m_PrefabInstance: {fileID: 8377400965980083886}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &290302554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24432,7 +24444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1003806099
 Transform:
   m_ObjectHideFlags: 0
@@ -33289,6 +33301,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1360594025}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1372521237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8377400967659988473, guid: 156341127a727234f8083a358d76de51,
+    type: 3}
+  m_PrefabInstance: {fileID: 77872315}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1373078217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48464,6 +48488,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910285873}
   m_CullTransparentMesh: 0
+--- !u!114 &1913642264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8377400967659988473, guid: 156341127a727234f8083a358d76de51,
+    type: 3}
+  m_PrefabInstance: {fileID: 1958950599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1919120317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49782,7 +49818,7 @@ PrefabInstance:
     - target: {fileID: 8377400967659988473, guid: 156341127a727234f8083a358d76de51,
         type: 3}
       propertyPath: m_Text
-      value: '$275
+      value: '$100
 
 '
       objectReference: {fileID: 0}
@@ -51227,7 +51263,7 @@ MonoBehaviour:
     - {fileID: 3999929344310444752, guid: 6799c7a88dbd2324099fa290ab560f16, type: 3}
     timeBetweenEnemies: 0.5
   spawnPoint: {fileID: 1665270290}
-  timeBetweenWaves: 20
+  timeBetweenWaves: 12
   countDownText: {fileID: 227252549}
 --- !u!4 &2025711161
 Transform:
@@ -51360,21 +51396,24 @@ MonoBehaviour:
     upgradedPrefab: {fileID: 3189301985018452587, guid: b5b564cef88a06a41962e131d7044da2,
       type: 3}
     cost: 100
-    upgradeCost: 125
+    upgradeCost: 80
   missileTurret:
     prefab: {fileID: 7589358043812438428, guid: 09f9c8e6489a0c34e86ba0ac41373051,
       type: 3}
     upgradedPrefab: {fileID: 7589358043812438428, guid: 09f9c8e6489a0c34e86ba0ac41373051,
       type: 3}
-    cost: 275
-    upgradeCost: 175
+    cost: 250
+    upgradeCost: 200
   laserTurret:
     prefab: {fileID: 8488798899552724915, guid: a52961069f9a000419b6e2ada18cc75f,
       type: 3}
     upgradedPrefab: {fileID: 8488798899552724915, guid: a52961069f9a000419b6e2ada18cc75f,
       type: 3}
-    cost: 225
-    upgradeCost: 150
+    cost: 200
+    upgradeCost: 160
+  shopText1: {fileID: 285918977}
+  shopText2: {fileID: 1913642264}
+  shopText3: {fileID: 1372521237}
 --- !u!114 &2025711169
 MonoBehaviour:
   m_ObjectHideFlags: 0

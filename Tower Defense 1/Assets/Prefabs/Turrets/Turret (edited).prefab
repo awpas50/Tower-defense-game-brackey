@@ -171,13 +171,13 @@ MonoBehaviour:
     level: 1
     maxLevel: 5
     turnSpeed: 10
-    initialATK: 25
-    fireRate: 0.6
+    initialATK: 20
+    fireRate: 0.5
     bulletSpeed: 10
     initialDPS: 0
     slowPercentage: 0
     cost: 100
-    upgradeCost: 125
+    upgradeCost: 80
     sellCost: 0
   range: 0
   enemyTag: Enemy

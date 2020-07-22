@@ -357,7 +357,7 @@ MonoBehaviour:
   enemyID: 3
   initialHP: 50
   HP: 50
-  initialSpeed: 16.5
+  initialSpeed: 18
   speed: 10
   worth: 25
   deathEffect: {fileID: 440578366459009766, guid: 5de3bf1b9de02f946be526248592cb7b,

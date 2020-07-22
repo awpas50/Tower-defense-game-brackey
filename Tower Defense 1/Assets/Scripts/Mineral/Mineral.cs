@@ -9,17 +9,10 @@ public class Mineral : MonoBehaviour
     // this variable will be assigned in "MineralSpawner", "AssignMinerals(int[] r)".
     public GameObject node;
 
-    private void Update()
-    {
-        if (GetComponent<Enemy>().HP <= 0)
-        {
-            RemoveNodeMark();
-        }
-    }
-
     // Remove the node mark so that turret can be placed on it.
-    void RemoveNodeMark()
+    public void RemoveNodeMark()
     {
+        Debug.Log("RemoveNodeMark");
         node = null;
     }
 }

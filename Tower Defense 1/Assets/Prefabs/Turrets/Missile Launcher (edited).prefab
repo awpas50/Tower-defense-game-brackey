@@ -285,8 +285,8 @@ MonoBehaviour:
     bulletSpeed: 10
     initialDPS: 0
     slowPercentage: 0
-    cost: 275
-    upgradeCost: 175
+    cost: 250
+    upgradeCost: 200
     sellCost: 0
   range: 0
   enemyTag: Enemy

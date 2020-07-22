@@ -287,14 +287,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6270987623372917222}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fcfa11e8c61da9b499ab7923fd518161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHP: 400
-  HP: 0
-  worth: 100
   explosionEffect: {fileID: 440578366459009766, guid: 03b92b6d89f77d14e809a79c2b0a70c4,
     type: 3}
   node: {fileID: 0}
@@ -311,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyID: 0
-  initialHP: 400
+  initialHP: 600
   HP: 0
   initialSpeed: 0
   speed: 0

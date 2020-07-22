@@ -355,9 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyID: 1
-  nextWavePoint: {fileID: 0}
-  wayPointIndex: 0
-  initialHP: 80
+  initialHP: 100
   HP: 50
   initialSpeed: 10
   speed: 10
@@ -377,13 +375,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82adcafb30d582240b7c913981c45a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyID: 0
   nextWavePoint: {fileID: 0}
   wayPointIndex: 0
-  initialHP: 50
-  HP: 0
-  initialSpeed: 10
-  speed: 0
-  worth: 0
-  deathEffect: {fileID: 0}
-  healthBar: {fileID: 0}

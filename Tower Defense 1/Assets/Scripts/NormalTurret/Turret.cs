@@ -218,7 +218,16 @@ public class Turret : MonoBehaviour
     void LaserAttack()
     {
         // deals damage
-        targetEnemy.TakeDamage(DPS * Time.deltaTime);
+        //1.5x damage to minerals
+        if(targetEnemy.GetComponent<Mineral>())
+        {
+            targetEnemy.TakeDamage(DPS * 2 * Time.deltaTime);
+        }
+        else
+        {
+            targetEnemy.TakeDamage(DPS * Time.deltaTime);
+        }
+        
         // slow enemies
         targetEnemy.SlowDown(turretStat.slowPercentage);
         // visual effects

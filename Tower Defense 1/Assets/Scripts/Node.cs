@@ -120,6 +120,7 @@ public class Node : MonoBehaviour
     // will only be called once when clicked by mouse
     void OnMouseEnter()
     {
+        Debug.Log(objectOnNode);
         // if no turret in the shop is selected 
         if (!buildManager.CanBuild)
         {
@@ -136,17 +137,12 @@ public class Node : MonoBehaviour
             rend.material.color = notEnoughMoneyColor;
         }
 
-        // if the object on node is a mineral 
-        // a statement was used to detect if the object has a script named "Mineral", if so, the object must be mineral.
-        if (objectOnNode.GetComponent<Mineral>())
+        // if there's object on the node
+        if (objectOnNode != null)
         {
             rend.material.color = initialColor;
         }
-        // not doing anything if the object is not a mineral
-        else if (objectOnNode == null)
-        {
-            rend.material.color = initialColor;
-        }
+
         //keep track of mesh renderer
         // without this code, when hover over the nodes under the UI (turret icon), the turret still gets set.
         if (EventSystem.current.IsPointerOverGameObject())
@@ -164,6 +160,11 @@ public class Node : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             rend.material.color = initialColor;
+        }
+        // it seems strange, but it prevents "Missing object" warning once a mineral was destroyed / a turret was sold.
+        if (objectOnNode == null)
+        {
+            objectOnNode = null;
         }
     }
 }

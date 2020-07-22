@@ -97,8 +97,7 @@ public class MineralSpawner : MonoBehaviour
             Debug.Log(r[i]);
             GameObject mineralPrefab = Instantiate(mineral, mineralPos_Node[r[i]].transform.position + offset, Quaternion.identity);
             // assign the mineral on the node so that turret cannot be placed on it (unless it has been destroyed)
-            mineralPos_Node[r[i]].GetComponent<Node>().objectOnNode = mineralPrefab;
-            mineralPrefab.GetComponent<Mineral>().node = mineralPos_Node[r[i]];
+            // mineralPos_Node[r[i]].GetComponent<Node>().objectOnNode = mineralPrefab;
         }
     }
 }
